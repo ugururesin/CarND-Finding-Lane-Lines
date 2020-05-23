@@ -22,28 +22,33 @@ After a research on medium.com and github (references: [1],[2],[3]), I found a b
 To get a better results I changed the Canny and Hough space parameters with a heuristic approach.
 I also changed the shape of my polygon mask in order to capture region of interest better.
 However, since I optimize my mask by using sample videos, this makes my optimization **non-generalizable** and this is a serious problem.  
-To overcome this problem ı used 'cv2.inRange()' method from opencv library. First of all, I approximately found the RGB values of the lane colors in the sample videos using the tool at **https://imagecolorpicker.com/**. Then, I limit these values in the dark and light range and try to eliminate places other than these colors.  
+To overcome this problem i used 'cv2.inRange()' method from opencv library. First of all, I approximately found the RGB values of the lane colors in the sample videos using the tool at **https://imagecolorpicker.com/**. Then, I limit these values in the dark and light range and try to eliminate places other than these colors.  
 
-To get 2 continuous lines, Hough transformation is used. First, it was found that each line belongs to the right or left lane according to the X value of the end points.
+To get 2 continuous lines, Hough transformation is used. First, it was found that each line belongs to the right or left lane according to the X value of the end points. Then slopes for the lines were calculated. Since the slope for the real lane lines can vary, a reasonable range for the slope was determined. The X and Y values were combined in a list for the corresponding lines whose slope stay in the range. (The lines whose slope do not stay in the range, were  eliminated). Then, a polynomial whose degree is 1, was fitted for each line.
 
+Results were pushed in a buffer whose size is given in the parameters. If buffer size is exceeded, the oldest one is dropped so that the newest line can be pushed onto the buffer.
+
+The heuristic approach was used to optimize parameters throughout the study.
 
 
 ### 2. Identify potential shortcomings with your current pipeline
 
+In the event that vehicles change lanes or if a vehicle enters the existing lane, particularly depending on the size and color of the vehicle, the results will be radically affected.
 
-Sharp curves and hills would change the angles of the lines and probably break the lane detector.  
+Changing the angle and / or intensity of daylight can affect performance. If this change is radical (for example, at night), the results can also affect radically.
 
-If the car were to change lanes, the results would be chaotic during the lane change.  
+The sharpness of the bend will seriously affect the results.
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-Instead of finding lane RGB values with screenshots from sample videos, different masks can be created for different scenarios. Because in real life, there is a much greater variance in lane colors due to the angle of the sun rays, season, shadows and deformation of lanes (brake marks, rain marks, etc.).
+Instead of finding lane RGB values with screenshots from sample videos, different masks can be created for different scenarios. Because in real life, there is a much greater variance in lane colors due to the angle of the sun rays, season, shadows and deformation of lanes (brake marks, rain marks, etc.). Relative differences can be considered here rather than the current lane colors from the example (short) videos.
 
-Rather than fitting a line, fitting a curve with a higher degree polynomial might provide a more accurate set of lane lines for sharp curves. Having more polygon mask shapes (e.g. for sharp right or left turns) might also be necessary if the curves are very sharp.
+In this study, a polynomial with a grade was fit. Instead of using higher grade polynomials, performance in curved-lanes can be improved.
 
-Defining a procedure to detect a lane change and switch the lane lines to next lane would be needed for a smooth transition.
+More successful results are obtained if multiple polygon masks and their usage criteria are defined instead of a single polygon mask usage.
 
+Instead of the heuristic approach, if an optimization is made with a criterion to be determined, a more inclusive parameter set can be obtained or the parameters can be made dynamic.
 
 [1]: https://medium.com/activating-robotic-minds/finding-lane-lines-on-the-road-30cf016a1165
 [2]: https://medium.com/computer-car/udacity-self-driving-car-nanodegree-project-1-finding-lane-lines-9cd6a846c58c
