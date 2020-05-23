@@ -17,7 +17,7 @@ My pipeline is consisted of 6 steps as follows:
 In this project, i started to converting the RGB images into grayscale, however, the result for the video 'challenge.mp4' was not satisfactory.  
 After a research on medium.com and github (references: [1],[2],[3]), I found a better way which is converting RGB image to HSV (Hue, Saturation, Value) space instead of only converting grayscale space. Converting the image to HSV color space made it easy for me **to make the lanes distinctive**. It also provide me a more general solution to overcome overfitting problem in which I mention about it below.
 
-<img src="images/rgb2hsv_roi.png" width="480" alt="Combined Image" />
+<img src="images/rgb2hsv_roi.png" width="805" alt="Combined Image" />
 
 To get a better results I changed the Canny and Hough space parameters with a heuristic approach.
 I also changed the shape of my polygon mask in order to capture region of interest better.
@@ -45,8 +45,7 @@ Rather than fitting a line, fitting a curve with a higher degree polynomial migh
 Defining a procedure to detect a lane change and switch the lane lines to next lane would be needed for a smooth transition.
 
 
-### References
 [1]: https://medium.com/activating-robotic-minds/finding-lane-lines-on-the-road-30cf016a1165
 [2]: https://medium.com/computer-car/udacity-self-driving-car-nanodegree-project-1-finding-lane-lines-9cd6a846c58c
-[3]: https://github.com/liamondrop/finding-lane-lines
+[3]: https://github.com/liamondrop/finding-lane-lines/blob/master/WRITEUP.md
 
