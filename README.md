@@ -1,6 +1,6 @@
-# **Finding Lane Lines on the Road** 
+# Self-Driving Car Engineer Nanodegree
 
-### Reflection
+## Project: **Finding Lane Lines on the Road** 
 
 #### 1. The Pipeline
 
