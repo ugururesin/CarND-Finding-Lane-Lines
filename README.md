@@ -30,7 +30,7 @@ Results were pushed in a buffer whose size is given in the parameters. If buffer
 The heuristic approach was used to optimize parameters throughout the study.
 
 
-### 2. Identify potential shortcomings with your current pipeline
+### 2. Potential shortcomings with the current pipeline
 
 In the event that vehicles change lanes or if a vehicle enters the existing lane, particularly depending on the size and color of the vehicle, the results will be radically affected.
 
@@ -39,7 +39,7 @@ Changing the angle and / or intensity of daylight can affect performance. If thi
 The sharpness of the bend will seriously affect the results.
 
 
-### 3. Suggest possible improvements to your pipeline
+### 3. Suggestion of possible improvements to the pipeline
 
 Instead of finding lane RGB values with screenshots from sample videos, different masks can be created for different scenarios. Because in real life, there is a much greater variance in lane colors due to the angle of the sun rays, season, shadows and deformation of lanes (brake marks, rain marks, etc.). Relative differences can be considered here rather than the current lane colors from the example (short) videos.
 
